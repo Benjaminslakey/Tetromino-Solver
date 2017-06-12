@@ -1,0 +1,39 @@
+a 42 project to arrange tetrominos on a board in the arrangement which fills the smallest square originating in the top left corner of the grid.
+input is given as a text file which contains tetrominos to be placed.
+Ex.
+
+fillit git:(master) ✗ cat test
+....
+....
+..##
+.##.
+
+..##
+...#
+...#
+....
+
+##..
+##..
+....
+....
+
+##..
+.##.
+....
+....
+
+#...
+#...
+#...
+#...
+
+
+Tetrominos are arranged on the board and replaced with letters representing the order of their input.
+
+fillit git:(master) ✗ ./fillit test 
+.AA.E
+AACCE
+BBCCE
+.BDDE
+.B.DD
