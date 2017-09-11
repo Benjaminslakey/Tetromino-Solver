@@ -19,6 +19,7 @@
 # define BUFF_SIZE 21
 # define TYPE_PARSE(x) (tet_map[r + (x[0])][c + (x[1])])
 # define ERR_GUARD(x, y) if (x) return (y)
+# define VAR5_INIT0(a, b, c, d, e) int a = 0, b = 0, c = 0, d = 0, e = 0;
 
 typedef struct		s_tet
 {

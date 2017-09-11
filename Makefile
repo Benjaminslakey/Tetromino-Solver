@@ -14,20 +14,14 @@ CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 
 LIBFT	= libft.a
-LIBLINK	= -L./libft
 
 all: $(NAME)
 
-$(LIBFT):
-	make -C ./libft
-	mv libft/$(LIBFT) .
-
 $(NAME): $(LIBFT) $(OBJ)
-	$(CC) $(LIBLINK) -o $(NAME) $(OBJ) $(LIBFT)
+	$(CC) -o $(NAME) $(OBJ) $(LIBFT)
 
 clean:
 	rm -rf $(OBJ)
-	make clean -C ./libft
 
 fclean: clean
 	rm -rf ./$(NAME)

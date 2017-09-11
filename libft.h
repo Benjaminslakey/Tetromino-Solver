@@ -6,33 +6,40 @@
 /*   By: bslakey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 12:40:20 by bslakey           #+#    #+#             */
-/*   Updated: 2016/10/22 05:28:11 by bslakey          ###   ########.fr       */
+/*   Updated: 2017/02/16 06:35:43 by bslakey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <stdint.h>
 # include <stdlib.h>
 # include <strings.h>
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <stdbool.h>
 # include <fcntl.h>
 
 # define WHT(x) (x == ' ' || x == '\t' || x == '\r' || x == '\v' || XWHT(x))
 # define XWHT(x) (x == '\f' || x == '\n' )
 # define ANUM(x) (x >= '0' && x <= '9')
 # define UCASE(x) (x >= 'A' && x <= 'Z')
-# define LCASE(x) (x  >= 'a' && x <= 'z')
+# define LCASE(x) (x >= 'a' && x <= 'z')
 # define ALPHA(x) (UCASE(x) || LCASE(x))
 # define ISIGN(x) (x == '-' || x == '+')
 # define VAR3_INIT0(i, j, k) int i = 0; int j = 0; int k = 0;
 # define VAR4_INIT0(w, x, y, z) int w = 0; int x = 0; int y = 0; int z = 0;
-# define VAR5_INIT0(a, b, c, d, e) int a = 0, b = 0, c = 0, d = 0, e = 0;
 # define ERR_GUARD(x, y) if (x) return (y)
+# define ERR_GUARD_VR(x) if (x) return
 # define MEM_GUARD(x) if (x == NULL) return (NULL)
 # define MEM_GUARD_VR(x) if (x == NULL) return
+
+# define RED "\x1b[31m"
+# define YELLOW "\x1b[33m"
+# define GREEN "\x1b[32m"
+# define CRESET "\x1b[0m"
 
 typedef struct		s_list
 {
@@ -56,7 +63,10 @@ void				*ft_memccpy(void *dst, const void *src, int c, size_t n);
 void				*ft_memmove(void *dst, const void *src, size_t len);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
+void				free_strings(char ***strings);
+void				free_int_arrays(int ***arr, int height);
 size_t				ft_strlen(const char *s);
+char				*ft_str_replace(char **to_replace, char *replace_with);
 char				*ft_strdup(const char *s1);
 char				*ft_strndup(const char *s1, size_t size);
 char				*ft_strcpy(char *dst, const char *src);
@@ -64,13 +74,14 @@ char				*ft_strncpy(char *dst, const char *src, size_t len);
 char				*ft_strcat(char *s1, const char *s2);
 char				*ft_strncat(char *s1, const char *s2, size_t n);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
+int					chr_count(char *s, char c);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strstr(const char *big, const char *little);
 char				*ft_strnstr(const char *b, const char *l, size_t len);
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
-int					ft_atoi(const char *str);
+intmax_t			ft_atoi(const char *str);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);
@@ -78,6 +89,8 @@ int					ft_isascii(int c);
 int					ft_isprint(int c);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
+void				ft_str_toupper(char *str);
+void				ft_str_tolower(char *str);
 void				*ft_memalloc(size_t size);
 void				ft_memdel(void **ap);
 char				*ft_strnew(size_t size);
@@ -94,7 +107,9 @@ char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(const char *s, char c);
 char				*ft_itoa(int n);
+int					ft_strcspn(char *s, char *allowed);
 size_t				d_strlen(char *s, int index, int delim);
+size_t				dstr_strlen(char *s, int index, const char *delims);
 int					w_dcount(char *words, int delim);
 void				ft_putchar(char c);
 void				ft_putchar_fd(char c, int fd);
@@ -117,4 +132,18 @@ int					ft_is_prime(int num);
 void				print_bits(unsigned char octet);
 void				print_hex(int n);
 int					ft_sqrt(int num);
+int					ft_nbrlen(intmax_t nbr, int base);
+char				*ft_append_str(char *orig, const char *to_append);
+char				*ft_prepend_str(char *orig, const char *to_prepend);
+int					**new_int_table(int height, int width);
+int					str_inhaystack(char *needle, char **haystack);
+void				delete_int_table(int height, int ***table);
+int					*clone_int_array(int *arr, int arr_size);
+void				copy_int_array(int **dest, int *src, int arr_size);
+void				integer_quicksort(int *int_table, int left, int right);
+void				swap_integers(int *a, int *b);
+int					ft_str_isnum(char *str);
+void				array_reverse_int(int *arr, int size);
+int					get_next_line(const int fd, char **line);
+
 #endif
